@@ -1,1 +1,67 @@
-<p>modal-promocion works!</p>
+<!-- modal-promocion.component.html -->
+<div class="modal-backdrop">
+    <div class="modal-content">
+      <h2>{{ esEdicion ? 'Editar Promoción' : 'Nueva Promoción' }}</h2>
+      <form (ngSubmit)="guardarCambios()">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input
+            id="nombre"
+            type="text"
+            [(ngModel)]="promocion.nombre"
+            name="nombre"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea
+            id="descripcion"
+            [(ngModel)]="promocion.descripcion"
+            name="descripcion"
+            required
+          ></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label for="descuento">Descuento</label>
+          <input
+            id="descuento"
+            type="number"
+            [(ngModel)]="promocion.descuento"
+            name="descuento"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="fechaInicio">Fecha Inicio</label>
+          <input
+            id="fechaInicio"
+            type="date"
+            [(ngModel)]="promocion.fechaInicio"
+            name="fechaInicio"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="fechaFin">Fecha Fin</label>
+          <input
+            id="fechaFin"
+            type="date"
+            [(ngModel)]="promocion.fechaFin"
+            name="fechaFin"
+            required
+          />
+        </div>
+  
+        <div class="form-actions">
+          <button type="submit">Guardar</button>
+          <button type="button" (click)="cerrarModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

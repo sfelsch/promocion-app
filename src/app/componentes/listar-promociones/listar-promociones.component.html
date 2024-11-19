@@ -1,27 +1,35 @@
+<!-- listar-promociones.component.html -->
 <table class="table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Descuento</th>
-        <th>Fecha Inicio</th>
-        <th>Fecha Fin</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let promocion of listaPromociones">
-        <td>{{ promocion.nombre }}</td>
-        <td>{{ promocion.descripcion }}</td>
-        <td>{{ promocion.descuento }}%</td>
-        <td>{{ promocion.fechaInicio }}</td>
-        <td>{{ promocion.fechaFin }}</td>
-        <td>
-          <button type="button" class="btn btn-info" (click)="verPromocion(promocion._id)">Ver</button>
-          <button type="button" class="btn btn-warning" (click)="actualizarPromocion(promocion)">Actualizar</button>
-          <button type="button" class="btn btn-danger" (click)="eliminarPromocion(promocion._id)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Descuento</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let promocion of listaPromociones">
+      <td>{{ promocion.nombre }}</td>
+      <td>{{ promocion.descripcion }}</td>
+      <td>{{ promocion.descuento }}%</td>
+      <td>{{ promocion.fechaInicio }}</td>
+      <td>{{ promocion.fechaFin }}</td>
+      <td>
+        <button type="button" class="btn btn-info" (click)="verPromocion(promocion._id)">Ver</button>
+        <button type="button" class="btn btn-warning" (click)="abrirModal(promocion)">Actualizar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarPromocion(promocion._id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-modal-promocion
+  *ngIf="mostrarModal"
+  [promocion]="promocionSeleccionada"
+  [esEdicion]="esEdicion"
+  (guardar)="guardarPromocion($event)"
+  (cerrar)="cerrarModal()"
+></app-modal-promocion>

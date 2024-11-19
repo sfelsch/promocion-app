@@ -1,7 +1,4 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
 # Compiled output
-/dist
 /tmp
 /out-tsc
 /bazel-out
@@ -40,3 +37,9 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Allow dist/promocion-app for GitHub Pages
+# Ignore general dist directory but allow the specific output for GitHub Pages
+/dist/*
+!/dist/promocion-app/
+

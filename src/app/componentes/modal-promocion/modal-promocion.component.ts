@@ -34,6 +34,7 @@ export class ModalPromocionComponent {
       fechaInicio: '',
       fechaFin: '',
       id_negocios: '',
+      estado:'',
     };
   }
 

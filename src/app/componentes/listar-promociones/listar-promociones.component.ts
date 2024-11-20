@@ -1,40 +1,87 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Promociones } from '../../modelos/promociones';
+import { Negocios } from '../../modelos/negocios';
+import { Redes } from '../../modelos/redes';
+import { listaNegocios } from '../../data/listaNegocios';
+import { listaRedes } from '../../data/listaRedes';
+import { PaginacionService } from '../../services/paginacion';
 import { ObtenerTodasLasPromocionesService } from './../../services/obtener-todas-las-promociones.service';
 import { ModalPromocionComponent } from '../modal-promocion/modal-promocion.component';
-import { CommonModule } from '@angular/common';
+import { ModalConfirmacionComponent } from '../../modal-confirmacion/modal-confirmacion.component';
 
 @Component({
   selector: 'app-listar-promociones',
   standalone: true,
-  imports: [CommonModule, ModalPromocionComponent],
+  imports: [CommonModule, ModalPromocionComponent, ModalConfirmacionComponent],
   templateUrl: './listar-promociones.component.html',
   styleUrls: ['./listar-promociones.component.css'],
 })
 export class ListarPromocionesComponent implements OnInit {
   listaPromociones: Promociones[] = [];
-  promocionSeleccionada: Promociones = this.crearNuevaPromocion(); // Crear una promoción vacía
+  listaNegocios: Negocios[] = listaNegocios;
+  promocionesPaginadas: Promociones[] = [];
+  promocionSeleccionada: Promociones = this.crearNuevaPromocion();
   mostrarModal: boolean = false;
   esEdicion: boolean = false;
+  mostrarModalConfirmacion: boolean = false;
+  promocionAEliminarId: string | null = null;
+  listaRedes: Redes[] = listaRedes;
 
-  constructor(
-    private obtenerTodasLasPromociones: ObtenerTodasLasPromocionesService
+  constructor(private obtenerTodasLasPromociones: ObtenerTodasLasPromocionesService,
+    private paginacionService: PaginacionService
   ) {}
 
   ngOnInit() {
     const promise = this.obtenerTodasLasPromociones.obtenerTodasLasPromociones();
     promise.then(
-      response => {
-        console.log('Respuesta del servicio:', response);
+      (response) => {
         this.listaPromociones = response.res;
+        this.calcularPaginas();
+    this.actualizarPromocionesPaginadas();
       },
-      error => {
-        console.log('Error ' + error);
+      (error) => {
+        console.error('Error:', error);
       }
     );
   }
 
-  // Función para crear una nueva promoción
+//obtener redes y negocios
+  obtenerNombreNegocio(id_negocios: string): string {
+    const negocio = this.listaNegocios.find((n) => n.id_negocios === id_negocios);
+    return negocio ? negocio.neg_nombre : 'Sin negocio asociado';
+  }
+  obtenerNombreRed(id_negocios: string): string {
+    const negocio = this.listaNegocios.find((n) => n.id_negocios === id_negocios);
+    if (negocio && negocio.id_redes) {
+      const red = this.listaRedes.find((r) => r.id_redes === negocio.id_redes);
+      return red ? red.red_nombre : 'Sin red asociada';
+    }
+    return 'Sin red asociada';
+  }
+
+//paginacion
+  paginaActual: number = 1;
+  promocionesPorPagina: number = 6;
+  paginas: number[] = [];
+
+  calcularPaginas(): void {
+    this.paginas = this.paginacionService.calcularPaginas(this.listaPromociones.length, this.promocionesPorPagina);
+  }
+  actualizarPromocionesPaginadas(): void {
+    this.promocionesPaginadas = this.paginacionService.obtenerPaginas(
+      this.listaPromociones,
+      this.paginaActual,
+      this.promocionesPorPagina
+    );
+  }
+  cambiarPagina(pagina: number): void {
+    if (pagina < 1 || pagina > this.paginas.length) return;
+    this.paginaActual = pagina;
+    this.actualizarPromocionesPaginadas();
+  }
+
+  //actualizar y guardar modificacion
   crearNuevaPromocion(): Promociones {
     return {
       _id: '',
@@ -43,22 +90,14 @@ export class ListarPromocionesComponent implements OnInit {
       descuento: 0,
       fechaInicio: '',
       fechaFin: '',
-      id_negocios:'',
+      id_negocios: '',
+      estado: '',
     };
   }
 
-  abrirModal(promocion?: Promociones): void {
-    console.log('Abrir Modal con promoción:', promocion);  // Verifica si se está ejecutando esta función y si recibes la promoción correcta.
-    this.promocionSeleccionada = promocion ? { ...promocion } : this.crearNuevaPromocion();
-    this.esEdicion = !!promocion;
-    this.mostrarModal = true;  // Establecer mostrarModal a true para mostrar el modal
-    console.log('mostrarModal:', this.mostrarModal);  // Verifica que mostrarModal esté en true
-  }
-  
-
   guardarPromocion(promocion: Promociones): void {
     if (this.esEdicion) {
-      const index = this.listaPromociones.findIndex(p => p._id === promocion._id);
+      const index = this.listaPromociones.findIndex((p) => p._id === promocion._id);
       if (index !== -1) {
         this.listaPromociones[index] = promocion;
       }
@@ -67,20 +106,32 @@ export class ListarPromocionesComponent implements OnInit {
       this.listaPromociones.push(promocion);
     }
     this.cerrarModal();
+    this.calcularPaginas();
+    this.actualizarPromocionesPaginadas();
   }
 
+//delete
   eliminarPromocion(id: string): void {
-    console.log('Eliminar promoción ' + id);
-    // Lógica para eliminar la promoción
+    this.promocionAEliminarId = id;
+    this.mostrarModalConfirmacion = true;
   }
 
-  verPromocion(id: string): void {
-    console.log('Ver detalles de promoción ' + id);
-    // Lógica para navegar a los detalles de la promoción
+  confirmarEliminacion(confirmado: boolean): void {
+    if (confirmado && this.promocionAEliminarId) {
+      this.listaPromociones = this.listaPromociones.filter((p) => p._id !== this.promocionAEliminarId);
+      this.calcularPaginas();
+      this.actualizarPromocionesPaginadas();
+    }
+    this.mostrarModalConfirmacion = false;
   }
-
+  //modal
+  abrirModal(promocion?: Promociones): void {
+    this.promocionSeleccionada = promocion ? { ...promocion } : this.crearNuevaPromocion();
+    this.esEdicion = !!promocion;
+    this.mostrarModal = true;
+  }
   cerrarModal(): void {
     this.mostrarModal = false;
-    this.promocionSeleccionada = this.crearNuevaPromocion(); // Restablecer la promoción al cerrar el modal
+    this.promocionSeleccionada = this.crearNuevaPromocion();
   }
 }

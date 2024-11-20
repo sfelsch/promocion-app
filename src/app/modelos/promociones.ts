@@ -7,6 +7,7 @@ export class Promociones {
   fechaInicio: string;
   fechaFin: string;
   id_negocios: string;
+  estado: string;
 
   constructor(
     _id: string,
@@ -15,7 +16,8 @@ export class Promociones {
     descuento: number,
     fechaInicio: string,
     fechaFin: string,
-    id_negocios: string
+    id_negocios: string,
+    estado: string
   ) {
     this._id = _id;
     this.nombre = nombre;
@@ -24,5 +26,6 @@ export class Promociones {
     this.fechaInicio = fechaInicio;
     this.fechaFin = fechaFin;
     this.id_negocios=id_negocios;
+    this.estado=estado;
   }
 }

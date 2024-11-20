@@ -8,7 +8,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 100,
     fechaInicio: "2024-01-01",
     fechaFin: "2024-01-31",
-    id_negocios:"1",
+    id_negocios: "1",
+    estado: "ACTIVO",
   },
   {
     _id: "2",
@@ -17,7 +18,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 150,
     fechaInicio: "2024-02-01",
     fechaFin: "2024-02-28",
-    id_negocios:"2",
+    id_negocios: "1",
+    estado: "ACTIVO",
   },
   {
     _id: "3",
@@ -26,7 +28,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 200,
     fechaInicio: "2024-03-01",
     fechaFin: "2024-03-31",
-    id_negocios:"3",
+    id_negocios: "1",
+    estado: "ACTIVO",
   },
   {
     _id: "4",
@@ -35,7 +38,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 250,
     fechaInicio: "2024-04-01",
     fechaFin: "2024-04-30",
-    id_negocios:"4",
+    id_negocios: "4",
+    estado: "ACTIVO",
   },
   {
     _id: "5",
@@ -44,7 +48,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 300,
     fechaInicio: "2024-05-01",
     fechaFin: "2024-05-31",
-    id_negocios:"5",
+    id_negocios: "5",
+    estado: "ACTIVO",
   },
   {
     _id: "6",
@@ -53,7 +58,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 350,
     fechaInicio: "2024-06-01",
     fechaFin: "2024-06-30",
-    id_negocios:"6",
+    id_negocios: "6",
+    estado: "ACTIVO",
   },
   {
     _id: "7",
@@ -62,7 +68,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 400,
     fechaInicio: "2024-07-01",
     fechaFin: "2024-07-31",
-    id_negocios:"7",
+    id_negocios: "7",
+    estado: "ACTIVO",
   },
   {
     _id: "8",
@@ -71,7 +78,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 450,
     fechaInicio: "2024-08-01",
     fechaFin: "2024-08-31",
-    id_negocios:"8",
+    id_negocios: "8",
+    estado: "ACTIVO",
   },
   {
     _id: "9",
@@ -80,7 +88,8 @@ export const listaPromociones: Promociones[] = [
     descuento: 500,
     fechaInicio: "2024-09-01",
     fechaFin: "2024-09-30",
-    id_negocios:"9",
+    id_negocios: "9",
+    estado: "INACTIVO",
   },
   {
     _id: "10",
@@ -89,7 +98,7 @@ export const listaPromociones: Promociones[] = [
     descuento: 550,
     fechaInicio: "2024-10-01",
     fechaFin: "2024-10-31",
-    id_negocios:"10",
-  }
+    id_negocios: "10",
+    estado: "ACTIVO",
+  },
 ];
-

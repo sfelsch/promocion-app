@@ -1,33 +1,58 @@
-<!-- listar-promociones.component.html -->
-<table class="table">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Descripción</th>
-      <th>Descuento</th>
-      <th>Fecha Inicio</th>
-      <th>Fecha Fin</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let promocion of listaPromociones">
-      <td>{{ promocion.nombre }}</td>
-      <td>{{ promocion.descripcion }}</td>
-      <td>{{ promocion.descuento }}%</td>
-      <td>{{ promocion.fechaInicio }}</td>
-      <td>{{ promocion.fechaFin }}</td>
-    
-      <td>
-        <button type="button" class="btn btn-info" (click)="verPromocion(promocion._id)">Ver</button>
-        <button type="button" class="btn btn-warning" (click)="abrirModal(promocion)">Actualizar</button>
-        <button type="button" class="btn btn-danger" (click)="eliminarPromocion(promocion._id)">Eliminar</button>
-
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+  <h2 class="text-center mb-4">Promociones</h2>
+  <div class="w-80">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Descuento</th>
+          <th>Nombre del Negocio</th>
+          <th>Red</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let promocion of promocionesPaginadas">
+          <td>{{ promocion.nombre }}</td>
+          <td>{{ promocion.descripcion }}</td>
+          <td>{{ promocion.descuento }}%</td>
+          <td>{{ obtenerNombreNegocio(promocion.id_negocios) }}</td>
+          <td>{{ obtenerNombreRed(promocion.id_negocios) }}</td>
+          <td>{{ promocion.fechaInicio }}</td>
+          <td>{{ promocion.fechaFin }}</td>
+          <td>{{ promocion.estado }}</td>
+          <td>
+            <button type="button" class="btn btn-warning" (click)="abrirModal(promocion)">Actualizar</button>
+            <button type="button" class="btn btn-danger" (click)="eliminarPromocion(promocion._id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+      
+      
+    </table>
+    <nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="paginaActual === 1">
+          <button class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</button>
+        </li>
+        <li
+          class="page-item"
+          *ngFor="let pagina of paginas; let i = index"
+          [class.active]="paginaActual === i + 1"
+        >
+          <button class="page-link" (click)="cambiarPagina(i + 1)">{{ i + 1 }}</button>
+        </li>
+        <li class="page-item" [class.disabled]="paginaActual === paginas.length">
+          <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
 <app-modal-promocion
   *ngIf="mostrarModal"
   class="modal-backdrop"
@@ -36,3 +61,10 @@
   (guardar)="guardarPromocion($event)"
   (cerrar)="cerrarModal()"
 ></app-modal-promocion>
+
+<app-modal-confirmacion
+  *ngIf="mostrarModalConfirmacion"
+  [mensaje]="'¿Estás seguro de que deseas eliminar esta promoción?'"
+  (confirmar)="confirmarEliminacion($event)"
+></app-modal-confirmacion>
+

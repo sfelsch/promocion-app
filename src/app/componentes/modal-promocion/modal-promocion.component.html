@@ -16,6 +16,19 @@
             <textarea id="descripcion" [(ngModel)]="promocion.descripcion" name="descripcion" class="form-control" required></textarea>
           </div>
           <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <select
+              id="estado"
+              class="form-select"
+              [(ngModel)]="promocion.estado"
+              name="estado"
+              required
+            >
+              <option value="ACTIVO">ACTIVO</option>
+              <option value="INACTIVO">INACTIVO</option>
+            </select>
+          </div>
+          <div class="mb-3">
             <label for="descuento" class="form-label">Descuento</label>
             <input id="descuento" type="number" [(ngModel)]="promocion.descuento" name="descuento" class="form-control" required />
           </div>
@@ -45,6 +58,7 @@
               id="negocios"
               class="form-select"
               [(ngModel)]="promocion.id_negocios"
+              name="id_negocios"
               [disabled]="negociosFiltrados.length === 0"
             >
               <option *ngFor="let negocio of negociosFiltrados" [value]="negocio.id_negocios">
@@ -52,7 +66,7 @@
               </option>
             </select>
           </div>
-          
+         
           <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary me-2">Guardar</button>
             <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>

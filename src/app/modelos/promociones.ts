@@ -1,4 +1,3 @@
-// promociones.ts (o el archivo donde esté definida la clase Promociones)
 
 export class Promociones {
   _id: string;
@@ -7,6 +6,7 @@ export class Promociones {
   descuento: number;
   fechaInicio: string;
   fechaFin: string;
+  id_negocios: string;
 
   constructor(
     _id: string,
@@ -14,7 +14,8 @@ export class Promociones {
     descripcion: string,
     descuento: number,
     fechaInicio: string,
-    fechaFin: string
+    fechaFin: string,
+    id_negocios: string
   ) {
     this._id = _id;
     this.nombre = nombre;
@@ -22,5 +23,6 @@ export class Promociones {
     this.descuento = descuento;
     this.fechaInicio = fechaInicio;
     this.fechaFin = fechaFin;
+    this.id_negocios=id_negocios;
   }
 }

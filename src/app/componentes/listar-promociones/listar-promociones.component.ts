@@ -43,6 +43,7 @@ export class ListarPromocionesComponent implements OnInit {
       descuento: 0,
       fechaInicio: '',
       fechaFin: '',
+      id_negocios:'',
     };
   }
 

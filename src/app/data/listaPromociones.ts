@@ -2,12 +2,13 @@ import { Promociones } from "../modelos/promociones";
 
 export const listaPromociones: Promociones[] = [
   {
-    _id: "1",                  // Cambié id_promociones a _id
-    nombre: "Promoción A",     // Cambié pro_nombre a nombre
-    descripcion: "Descripción de Promoción A",  // Asigna descripción según sea necesario
-    descuento: 100,            // Cambié pro_valor a descuento
-    fechaInicio: "2024-01-01",  // Cambié pro_fecha_desde a fechaInicio (como string)
-    fechaFin: "2024-01-31",    // Cambié pro_fecha_hasta a fechaFin (como string)
+    _id: "1",
+    nombre: "Promoción A",
+    descripcion: "Descripción de Promoción A",
+    descuento: 100,
+    fechaInicio: "2024-01-01",
+    fechaFin: "2024-01-31",
+    id_negocios:"1",
   },
   {
     _id: "2",
@@ -16,6 +17,7 @@ export const listaPromociones: Promociones[] = [
     descuento: 150,
     fechaInicio: "2024-02-01",
     fechaFin: "2024-02-28",
+    id_negocios:"2",
   },
   {
     _id: "3",
@@ -24,5 +26,70 @@ export const listaPromociones: Promociones[] = [
     descuento: 200,
     fechaInicio: "2024-03-01",
     fechaFin: "2024-03-31",
+    id_negocios:"3",
+  },
+  {
+    _id: "4",
+    nombre: "Promoción D",
+    descripcion: "Descripción de Promoción D",
+    descuento: 250,
+    fechaInicio: "2024-04-01",
+    fechaFin: "2024-04-30",
+    id_negocios:"4",
+  },
+  {
+    _id: "5",
+    nombre: "Promoción E",
+    descripcion: "Descripción de Promoción E",
+    descuento: 300,
+    fechaInicio: "2024-05-01",
+    fechaFin: "2024-05-31",
+    id_negocios:"5",
+  },
+  {
+    _id: "6",
+    nombre: "Promoción F",
+    descripcion: "Descripción de Promoción F",
+    descuento: 350,
+    fechaInicio: "2024-06-01",
+    fechaFin: "2024-06-30",
+    id_negocios:"6",
+  },
+  {
+    _id: "7",
+    nombre: "Promoción G",
+    descripcion: "Descripción de Promoción G",
+    descuento: 400,
+    fechaInicio: "2024-07-01",
+    fechaFin: "2024-07-31",
+    id_negocios:"7",
+  },
+  {
+    _id: "8",
+    nombre: "Promoción H",
+    descripcion: "Descripción de Promoción H",
+    descuento: 450,
+    fechaInicio: "2024-08-01",
+    fechaFin: "2024-08-31",
+    id_negocios:"8",
+  },
+  {
+    _id: "9",
+    nombre: "Promoción I",
+    descripcion: "Descripción de Promoción I",
+    descuento: 500,
+    fechaInicio: "2024-09-01",
+    fechaFin: "2024-09-30",
+    id_negocios:"9",
+  },
+  {
+    _id: "10",
+    nombre: "Promoción J",
+    descripcion: "Descripción de Promoción J",
+    descuento: 550,
+    fechaInicio: "2024-10-01",
+    fechaFin: "2024-10-31",
+    id_negocios:"10",
   }
 ];
+

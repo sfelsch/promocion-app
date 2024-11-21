@@ -35,7 +35,7 @@ export class ListarPromocionesComponent implements OnInit {
     private paginacionService: PaginacionService,
     private eliminarPromocionesService: EliminarPromocionesService,
     private actualizarPromocionesService: ActualizarPromocionesService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const promise = this.obtenerTodasLasPromociones.obtenerTodasLasPromociones();
@@ -43,7 +43,7 @@ export class ListarPromocionesComponent implements OnInit {
       (response) => {
         this.listaPromociones = response.res;
         this.calcularPaginas();
-    this.actualizarPromocionesPaginadas();
+        this.actualizarPromocionesPaginadas();
       },
       (error) => {
         console.error('Error:', error);
@@ -51,7 +51,7 @@ export class ListarPromocionesComponent implements OnInit {
     );
   }
 
-//obtener redes y negocios
+  //obtener redes y negocios
   obtenerNombreNegocio(id_negocios: string): string {
     const negocio = this.listaNegocios.find((n) => n.id_negocios === id_negocios);
     return negocio ? negocio.neg_nombre : 'Sin negocio asociado';
@@ -65,7 +65,7 @@ export class ListarPromocionesComponent implements OnInit {
     return 'Sin red asociada';
   }
 
-//paginacion
+  //paginacion
   paginaActual: number = 1;
   promocionesPorPagina: number = 6;
   paginas: number[] = [];
@@ -102,7 +102,6 @@ export class ListarPromocionesComponent implements OnInit {
 
   guardarPromocion(promocion: Promociones): void {
     if (this.esEdicion) {
-      // Actualización de promoción existente
       const index = this.listaPromociones.findIndex((p) => p._id === promocion._id);
       if (index !== -1) {
         this.listaPromociones[index] = promocion;
@@ -110,38 +109,38 @@ export class ListarPromocionesComponent implements OnInit {
         this.actualizarPromocionesPaginadas();
       }
     } else {
-      // Creación de nueva promoción
-      const nuevoId = (this.listaPromociones.length + 1).toString(); // ID basado en la cantidad de elementos
+      // Crear nueva promocion
+      const nuevoId = (this.listaPromociones.length + 1).toString();
       promocion._id = nuevoId;
-      this.listaPromociones.push(promocion); // Agregar la nueva promoción a la lista
+      this.listaPromociones.push(promocion);
       this.calcularPaginas();
       this.actualizarPromocionesPaginadas();
     }
     this.cerrarModal();
   }
-  
-  
 
-//delete
-prepararEliminacion(id: string): void {
-  this.promocionAEliminarId = id;
-  this.mostrarModalConfirmacion = true;
-}
 
-confirmarEliminacion(confirmado: boolean): void {
-  if (confirmado && this.promocionAEliminarId) {
-    this.eliminarPromocionesService.eliminarPromocion(this.promocionAEliminarId)
-      .then(() => {
-        this.listaPromociones = this.listaPromociones.filter((p) => p._id !== this.promocionAEliminarId);
-        this.calcularPaginas();
-        this.actualizarPromocionesPaginadas();
-      })
-      .catch((error) => {
-        console.error('Error eliminando la promoción:', error);
-      });
+
+  //delete
+  prepararEliminacion(id: string): void {
+    this.promocionAEliminarId = id;
+    this.mostrarModalConfirmacion = true;
   }
-  this.mostrarModalConfirmacion = false;
-}
+
+  confirmarEliminacion(confirmado: boolean): void {
+    if (confirmado && this.promocionAEliminarId) {
+      this.eliminarPromocionesService.eliminarPromocion(this.promocionAEliminarId)
+        .then(() => {
+          this.listaPromociones = this.listaPromociones.filter((p) => p._id !== this.promocionAEliminarId);
+          this.calcularPaginas();
+          this.actualizarPromocionesPaginadas();
+        })
+        .catch((error) => {
+          console.error('Error eliminando la promoción:', error);
+        });
+    }
+    this.mostrarModalConfirmacion = false;
+  }
 
 
   //modal

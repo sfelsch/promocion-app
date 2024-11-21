@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ModalConfirmacionComponent {
   @Input() mensaje: string = '';
-  @Input() esEdicion: boolean = false; // Add this line
+  @Input() esEdicion: boolean = false;
   @Output() confirmar: EventEmitter<boolean> = new EventEmitter();
 
   confirmarAccion(confirmado: boolean): void {

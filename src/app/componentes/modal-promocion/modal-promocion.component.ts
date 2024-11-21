@@ -43,7 +43,7 @@ export class ModalPromocionComponent {
     const fechaInicio = new Date(this.promocion.fechaInicio);
     const fechaFin = new Date(this.promocion.fechaFin);
   
-    // Validaciones
+// Validacion
     if (this.promocion.descripcion.length > 30) {
       alert('La descripción no puede tener más de 30 caracteres.');
       return;
@@ -75,17 +75,13 @@ export class ModalPromocionComponent {
     this.cerrar.emit();
   }
 
-  // Método para manejar el cambio de selección de red
+
   onRedSeleccionada(event: Event): void {
     const selectedId = (event.target as HTMLSelectElement).value;
     console.log('Red seleccionada ID:', selectedId);
-
-    // Filtrar negocios por id_redes
     this.negociosFiltrados = this.listaNegocios.filter(
       (negocio) => negocio.id_redes === selectedId
     );
-
-    // Limpiar el negocio seleccionado si cambia la red
     this.promocion.id_negocios = '';
   }
 }

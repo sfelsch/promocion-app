@@ -39,8 +39,37 @@ export class ModalPromocionComponent {
   }
 
   guardarCambios(): void {
+    const hoy = new Date();
+    const fechaInicio = new Date(this.promocion.fechaInicio);
+    const fechaFin = new Date(this.promocion.fechaFin);
+  
+    // Validaciones
+    if (this.promocion.descripcion.length > 30) {
+      alert('La descripción no puede tener más de 30 caracteres.');
+      return;
+    }
+    if (!this.promocion.nombre || !this.promocion.descripcion || !this.promocion.estado ||
+        !this.promocion.descuento || !this.promocion.fechaInicio || !this.promocion.fechaFin ||
+        !this.promocion.id_negocios) {
+      alert('Todos los campos son obligatorios.');
+      return;
+    }
+    if (this.promocion.descuento < 0) {
+      alert('El descuento no puede ser negativo.');
+      return;
+    }
+    if (fechaInicio < hoy) {
+      alert('La fecha de inicio no puede ser anterior al día de hoy.');
+      return;
+    }
+    if (fechaFin <= fechaInicio) {
+      alert('La fecha de fin debe ser mayor a la fecha de inicio.');
+      return;
+    }
+  
     this.guardar.emit(this.promocion);
   }
+  
 
   cerrarModal(): void {
     this.cerrar.emit();

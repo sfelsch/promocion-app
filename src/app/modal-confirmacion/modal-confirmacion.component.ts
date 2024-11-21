@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-modal-confirmacion',
   standalone: true,
-  imports: [CommonModule], // Agregar CommonModule si el componente es standalone
+  imports: [CommonModule],
   templateUrl: './modal-confirmacion.component.html',
   styleUrls: ['./modal-confirmacion.component.css']
 })
 export class ModalConfirmacionComponent {
   @Input() mensaje: string = '';
+  @Input() esEdicion: boolean = false; // Add this line
   @Output() confirmar: EventEmitter<boolean> = new EventEmitter();
 
   confirmarAccion(confirmado: boolean): void {
